@@ -51,7 +51,15 @@ namespace RatioRuler
         {
             get
             {
-                return GetXorY(this.rulerCursor.Location);
+                int pos = GetXorY(this.rulerCursor.Location);
+                if (vertical.Checked)
+                {
+                    return AxisAreaLength - pos;
+                }
+                else
+                {
+                    return pos;
+                }
             }
         }
 
@@ -65,7 +73,7 @@ namespace RatioRuler
 
         private void UpdateValueText()
         {
-            double ratio = (double)(AxisAreaLength - RulerCursorPosition) / AxisAreaLength;
+            double ratio = (double)RulerCursorPosition / AxisAreaLength;
             if (logScale.Checked)
             {
                 ratio = Math.Pow(10, ratio - 1);
