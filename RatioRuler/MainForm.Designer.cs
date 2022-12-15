@@ -45,7 +45,7 @@
             this.rulerCursor.Location = new System.Drawing.Point(50, 0);
             this.rulerCursor.Margin = new System.Windows.Forms.Padding(0);
             this.rulerCursor.Name = "rulerCursor";
-            this.rulerCursor.Size = new System.Drawing.Size(1, 30);
+            this.rulerCursor.Size = new System.Drawing.Size(1, 80);
             this.rulerCursor.TabIndex = 0;
             this.rulerCursor.TabStop = false;
             // 
@@ -66,6 +66,7 @@
             this.controlPanel.Controls.Add(this.label2);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.value);
+            this.controlPanel.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.controlPanel.Location = new System.Drawing.Point(370, 12);
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(142, 135);
@@ -84,7 +85,6 @@
             // 
             // scale
             // 
-            this.scale.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.scale.FormattingEnabled = true;
             this.scale.Items.AddRange(new object[] {
             "1",

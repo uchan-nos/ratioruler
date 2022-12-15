@@ -28,10 +28,21 @@ namespace RatioRuler
             get { return this.controlPanel.Location.X - 30; }
         }
 
+        private void UpdateValueText()
+        {
+            double ratio = (double)this.rulerCursor.Location.X / Width10;
+            if (logScale.Checked)
+            {
+                ratio = Math.Pow(10, ratio - 1);
+            }
+            double scale = double.Parse(this.scale.Text);
+            this.value.Text = (scale * ratio).ToString("F3");
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //this.FormBorderStyle = FormBorderStyle.Sizable;
             this.ClientSize = new Size(500, this.ClientSize.Height);
+            this.UpdateValueText();
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
@@ -81,13 +92,7 @@ namespace RatioRuler
             else
             {
                 this.rulerCursor.Location = new Point(e.Location.X, 0);
-                double ratio = (double)e.Location.X / Width10;
-                if (logScale.Checked)
-                {
-                    ratio = Math.Pow(10, ratio - 1);
-                }
-                double scale = double.Parse(this.scale.Text);
-                this.value.Text = (scale * ratio).ToString("F3");
+                this.UpdateValueText();
             }
         }
 
