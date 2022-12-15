@@ -31,6 +31,7 @@
             this.rulerCursor = new System.Windows.Forms.PictureBox();
             this.value = new System.Windows.Forms.Label();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.vertical = new System.Windows.Forms.CheckBox();
             this.logScale = new System.Windows.Forms.CheckBox();
             this.scale = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.rulerCursor.Size = new System.Drawing.Size(1, 80);
             this.rulerCursor.TabIndex = 0;
             this.rulerCursor.TabStop = false;
+            this.rulerCursor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rulerCursor_MouseDown);
             // 
             // value
             // 
@@ -61,6 +63,7 @@
             // controlPanel
             // 
             this.controlPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.controlPanel.Controls.Add(this.vertical);
             this.controlPanel.Controls.Add(this.logScale);
             this.controlPanel.Controls.Add(this.scale);
             this.controlPanel.Controls.Add(this.label2);
@@ -71,6 +74,17 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(142, 135);
             this.controlPanel.TabIndex = 3;
+            // 
+            // vertical
+            // 
+            this.vertical.AutoSize = true;
+            this.vertical.Location = new System.Drawing.Point(78, 81);
+            this.vertical.Name = "vertical";
+            this.vertical.Size = new System.Drawing.Size(61, 36);
+            this.vertical.TabIndex = 7;
+            this.vertical.Text = "V";
+            this.vertical.UseVisualStyleBackColor = true;
+            this.vertical.CheckedChanged += new System.EventHandler(this.vertical_CheckedChanged);
             // 
             // logScale
             // 
@@ -154,5 +168,6 @@
         private Label label1;
         private ComboBox scale;
         private CheckBox logScale;
+        private CheckBox vertical;
     }
 }
