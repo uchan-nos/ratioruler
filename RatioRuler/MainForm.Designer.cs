@@ -54,9 +54,9 @@
             // value
             // 
             this.value.BackColor = System.Drawing.Color.White;
-            this.value.Location = new System.Drawing.Point(68, 0);
+            this.value.Location = new System.Drawing.Point(80, 0);
             this.value.Name = "value";
-            this.value.Size = new System.Drawing.Size(71, 32);
+            this.value.Size = new System.Drawing.Size(80, 32);
             this.value.TabIndex = 1;
             this.value.Text = "1.234";
             // 
@@ -69,16 +69,15 @@
             this.controlPanel.Controls.Add(this.label2);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.value);
-            this.controlPanel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.controlPanel.Location = new System.Drawing.Point(370, 12);
+            this.controlPanel.Location = new System.Drawing.Point(344, 12);
             this.controlPanel.Name = "controlPanel";
-            this.controlPanel.Size = new System.Drawing.Size(142, 135);
+            this.controlPanel.Size = new System.Drawing.Size(168, 135);
             this.controlPanel.TabIndex = 3;
             // 
             // vertical
             // 
             this.vertical.AutoSize = true;
-            this.vertical.Location = new System.Drawing.Point(78, 81);
+            this.vertical.Location = new System.Drawing.Point(80, 81);
             this.vertical.Name = "vertical";
             this.vertical.Size = new System.Drawing.Size(61, 36);
             this.vertical.TabIndex = 7;
@@ -105,9 +104,9 @@
             "2",
             "5",
             "10"});
-            this.scale.Location = new System.Drawing.Point(72, 35);
+            this.scale.Location = new System.Drawing.Point(80, 35);
             this.scale.Name = "scale";
-            this.scale.Size = new System.Drawing.Size(67, 40);
+            this.scale.Size = new System.Drawing.Size(80, 40);
             this.scale.TabIndex = 5;
             this.scale.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scale_KeyDown);
             // 
@@ -135,9 +134,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(524, 159);
-            this.Controls.Add(this.controlPanel);
             this.Controls.Add(this.rulerCursor);
-            this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.Controls.Add(this.controlPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimumSize = new System.Drawing.Size(15, 0);
             this.Name = "MainForm";

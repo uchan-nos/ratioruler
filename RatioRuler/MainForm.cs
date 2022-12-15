@@ -85,6 +85,7 @@ namespace RatioRuler
         {
             int textY = this.ClientSize.Height - this.axisLabels[0].DrawSize.Height - 10;
 
+            e.Graphics.DrawLine(pen, 0, 0, 0, textY - 10);
             for (int i = logScale.Checked ? 2 : 1; i <= 10; i++)
             {
                 double ratio = logScale.Checked ? Math.Log10(i) : (double)i / 10;
