@@ -117,7 +117,7 @@ namespace RatioRuler
                 }
             }
 
-            for (int i = 1; i <= 10; i++)
+            for (int i = logScale.Checked ? 1 : 0; i <= 10; i++)
             {
                 double ratio = calcRatio(i);
                 string label = "";
