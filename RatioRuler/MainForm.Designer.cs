@@ -54,11 +54,11 @@
             // value
             // 
             this.value.BackColor = System.Drawing.Color.White;
-            this.value.Location = new System.Drawing.Point(80, 0);
+            this.value.Location = new System.Drawing.Point(70, 0);
             this.value.Name = "value";
-            this.value.Size = new System.Drawing.Size(80, 32);
+            this.value.Size = new System.Drawing.Size(90, 32);
             this.value.TabIndex = 1;
-            this.value.Text = "1.234";
+            this.value.Text = "-1.234";
             // 
             // controlPanel
             // 
@@ -69,15 +69,15 @@
             this.controlPanel.Controls.Add(this.label2);
             this.controlPanel.Controls.Add(this.label1);
             this.controlPanel.Controls.Add(this.value);
-            this.controlPanel.Location = new System.Drawing.Point(344, 12);
+            this.controlPanel.Location = new System.Drawing.Point(352, 12);
             this.controlPanel.Name = "controlPanel";
-            this.controlPanel.Size = new System.Drawing.Size(168, 130);
+            this.controlPanel.Size = new System.Drawing.Size(160, 121);
             this.controlPanel.TabIndex = 3;
             // 
             // vertical
             // 
             this.vertical.AutoSize = true;
-            this.vertical.Location = new System.Drawing.Point(80, 81);
+            this.vertical.Location = new System.Drawing.Point(0, 81);
             this.vertical.Name = "vertical";
             this.vertical.Size = new System.Drawing.Size(61, 36);
             this.vertical.TabIndex = 7;
@@ -88,7 +88,7 @@
             // logScale
             // 
             this.logScale.AutoSize = true;
-            this.logScale.Location = new System.Drawing.Point(3, 81);
+            this.logScale.Location = new System.Drawing.Point(70, 81);
             this.logScale.Name = "logScale";
             this.logScale.Size = new System.Drawing.Size(80, 36);
             this.logScale.TabIndex = 6;
@@ -104,9 +104,9 @@
             "2",
             "5",
             "10"});
-            this.scale.Location = new System.Drawing.Point(80, 35);
+            this.scale.Location = new System.Drawing.Point(70, 35);
             this.scale.Name = "scale";
-            this.scale.Size = new System.Drawing.Size(80, 40);
+            this.scale.Size = new System.Drawing.Size(90, 40);
             this.scale.TabIndex = 5;
             this.scale.SelectedIndexChanged += new System.EventHandler(this.scale_SelectedIndexChanged);
             this.scale.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scale_KeyDown);
@@ -134,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(524, 155);
+            this.ClientSize = new System.Drawing.Size(524, 145);
             this.Controls.Add(this.rulerCursor);
             this.Controls.Add(this.controlPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
