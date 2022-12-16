@@ -71,7 +71,7 @@
             this.controlPanel.Controls.Add(this.value);
             this.controlPanel.Location = new System.Drawing.Point(344, 12);
             this.controlPanel.Name = "controlPanel";
-            this.controlPanel.Size = new System.Drawing.Size(168, 135);
+            this.controlPanel.Size = new System.Drawing.Size(168, 130);
             this.controlPanel.TabIndex = 3;
             // 
             // vertical
@@ -134,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(524, 159);
+            this.ClientSize = new System.Drawing.Size(524, 155);
             this.Controls.Add(this.rulerCursor);
             this.Controls.Add(this.controlPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;

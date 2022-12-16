@@ -259,18 +259,23 @@ namespace RatioRuler
         private void vertical_CheckedChanged(object sender, EventArgs e)
         {
             this.rulerCursor.Size = new Size(this.rulerCursor.Size.Height, this.rulerCursor.Size.Width);
+
             this.controlPanel.Location = new Point(0, 0);
             this.controlPanel.Anchor = 15 - this.controlPanel.Anchor;
+
+            Size newSize = new Size(this.ClientSize.Height, this.ClientSize.Width);
             if (this.vertical.Checked)
             {
                 this.controlPanel.Location = new Point(12, this.ClientSize.Height - this.controlPanel.Height - 12);
+                newSize.Width = this.controlPanel.Width + 12 * 2;
             }
             else
             {
                 this.controlPanel.Location = new Point(this.ClientSize.Width - this.controlPanel.Width - 12, 12);
+                newSize.Height = this.controlPanel.Height + 12 * 2;
             }
 
-            this.ClientSize = new Size(this.ClientSize.Height, this.ClientSize.Width);
+            this.ClientSize = newSize;
             this.Invalidate();
         }
 
