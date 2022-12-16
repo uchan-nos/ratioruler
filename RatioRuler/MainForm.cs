@@ -1,37 +1,33 @@
 namespace RatioRuler
 {
-    struct AxisLabel
-    {
-        public Size DrawSize;
-        public String Text;
-    }
-
     public partial class MainForm : Form
     {
         private bool dragging = false;
         private Size dragOffset = new Size();
-        private AxisLabel[] axisLabels = new AxisLabel[11];
+        private int labelHeight, labelWidth2, labelWidth1;
+        private Dictionary<double, string[]> scaledAxisLabel = new Dictionary<double, string[]>();
 
         public MainForm()
         {
             InitializeComponent();
-            for (int i = 0; i < this.axisLabels.Length; i++)
-            {
-                if (i == 0)
-                {
-                    this.axisLabels[i].Text = "0";
-                }
-                else if (i == 10)
-                {
-                    this.axisLabels[i].Text = "1";
-                }
-                else
-                {
-                    this.axisLabels[i].Text = $".{i}";
-                }
-                this.axisLabels[i].DrawSize = TextRenderer.MeasureText(this.axisLabels[i].Text, this.Font);
-            }
+            Size labelSize2 = TextRenderer.MeasureText(".5", this.Font);
+            this.labelHeight = labelSize2.Height;
+            this.labelWidth2 = labelSize2.Width;
+            this.labelWidth1 = TextRenderer.MeasureText("5", this.Font).Width;
             this.scale.SelectedIndex = 0;
+
+            foreach (var item in this.scale.Items)
+            {
+                double scale = double.Parse(item.ToString());
+                string[] labels = new string[11];
+                for (int i = 0; i <= 10; i++)
+                {
+                    int value = (int)Math.Round(scale * i);
+                    int fraction = value % 10;
+                    labels[i] = fraction == 0 ? $"{value / 10}" : $".{fraction}";
+                }
+                this.scaledAxisLabel.Add(scale, labels);
+            }
         }
 
         private int GetXorY(Point p)
@@ -81,42 +77,80 @@ namespace RatioRuler
             this.value.Text = (ValueScale * ratio).ToString("F3");
         }
 
-        private void DrawHorizontalAxis(PaintEventArgs e, Pen pen, Brush brush)
+        private void DrawAxis(PaintEventArgs e, Pen pen, Brush brush)
         {
-            int textY = this.ClientSize.Height - this.axisLabels[0].DrawSize.Height - 10;
-
-            e.Graphics.DrawLine(pen, 0, 0, 0, textY - 10);
-            for (int i = logScale.Checked ? 2 : 1; i <= 10; i++)
+            var calcRatio = (int i) => (double)i / 10;
+            if (logScale.Checked)
             {
-                double ratio = logScale.Checked ? Math.Log10(i) : (double)i / 10;
-                int x = (int)Math.Round(AxisAreaLength * ratio);
-                e.Graphics.DrawLine(pen, x, 0, x, textY - 10);
+                calcRatio = (int i) => Math.Log10(i);
+            }
 
-                if (!logScale.Checked || (i <= 5 || i == 7 || i == 10))
+            int axisLength = AxisAreaLength;
+            bool[] drawLabel = Enumerable.Repeat(true, 11).ToArray();
+            if (logScale.Checked)
+            {
+                if (axisLength < 400)
                 {
-                    int textX = x - axisLabels[i].DrawSize.Width / 2 + 2;
-                    e.Graphics.DrawString(axisLabels[i].Text, this.Font, brush, textX, textY);
+                    drawLabel[9] = false;
                 }
+                if (axisLength < 300)
+                {
+                    drawLabel[8] = false;
+                }
+                if (axisLength < 250)
+                {
+                    drawLabel[6] = false;
+                }
+                if (axisLength < 170)
+                {
+                    drawLabel[4] = false;
+                }
+            }
+            else
+            {
+                if (axisLength < 200)
+                {
+                    for (int i = 1; i <= 10; i += 2)
+                    {
+                        drawLabel[i] = false;
+                    }
+                }
+            }
+
+            for (int i = 1; i <= 10; i++)
+            {
+                double ratio = calcRatio(i);
+                string label = "";
+                if (drawLabel[i])
+                {
+                    label = this.scaledAxisLabel[ValueScale][i];
+                }
+                this.DrawTick(e, pen, brush, ratio, label);
             }
         }
-        private void DrawVerticalAxis(PaintEventArgs e, Pen pen, Brush brush)
-        {
-            int textX = this.ClientSize.Width - this.axisLabels[0].DrawSize.Width - 10;
 
-            for (int i = logScale.Checked ? 1 : 0; i <= 9; i++)
+        private void DrawTick(PaintEventArgs e, Pen pen, Brush brush, double ratio, string label)
+        {
+            int textX, textY;
+            if (vertical.Checked)
             {
-                double ratio = logScale.Checked ? Math.Log10(i) : (double)i / 10;
+                textX = this.ClientSize.Width - (label.Length == 1 ? this.labelWidth1 : this.labelWidth2) - 10;
                 int y = AxisAreaLength - (int)Math.Round(AxisAreaLength * ratio);
                 e.Graphics.DrawLine(pen, 0, y, textX - 10, y);
-
-                if (!logScale.Checked || (i <= 5 || i == 7 || i == 10))
-                {
-                    int textY = y - axisLabels[i].DrawSize.Height / 2;
-                    e.Graphics.DrawString(axisLabels[i].Text, this.Font, brush, textX, textY);
-                }
+                textY = y - this.labelHeight / 2;
+            }
+            else
+            {
+                textY = this.ClientSize.Height - this.labelHeight - 10;
+                int x = (int)Math.Round(AxisAreaLength * ratio);
+                e.Graphics.DrawLine(pen, x, 0, x, textY);
+                textX = x - (label.Length == 1 ? this.labelWidth1 : this.labelWidth2) / 2 + 2;
             }
 
-            e.Graphics.DrawLine(pen, 0, 0, textX - 10, 0);
+            if (textX >= 0 && textY >= 0)
+            {
+                e.Graphics.DrawString(label, this.Font, brush, textX, textY);
+            }
         }
 
         private void MoveMouseCursor(int diffX, int diffY)
@@ -150,14 +184,7 @@ namespace RatioRuler
         {
             Pen pen = new Pen(Color.Blue);
             Brush brush = new SolidBrush(Color.Blue);
-            if (vertical.Checked)
-            {
-                DrawVerticalAxis(e, pen, brush);
-            }
-            else
-            {
-                DrawHorizontalAxis(e, pen, brush);
-            }
+            this.DrawAxis(e, pen, brush);
         }
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
@@ -220,6 +247,11 @@ namespace RatioRuler
         }
 
         private void logScale_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+
+        private void scale_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.Invalidate();
         }

@@ -108,6 +108,7 @@
             this.scale.Name = "scale";
             this.scale.Size = new System.Drawing.Size(80, 40);
             this.scale.TabIndex = 5;
+            this.scale.SelectedIndexChanged += new System.EventHandler(this.scale_SelectedIndexChanged);
             this.scale.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scale_KeyDown);
             // 
             // label2
